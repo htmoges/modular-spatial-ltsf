@@ -1,0 +1,43 @@
+# +R+S — PatchTST on traffic
+model: gdf
+backbone: patchtst
+dataset: traffic
+
+backbone_kwargs:
+  d_model: 128
+  n_heads: 16
+  d_ff: 256
+  n_layers: 3
+  patch_len: 16
+  stride: 8
+  dropout: 0.2
+  fc_dropout: 0.2
+  head_dropout: 0.0
+  use_revin: true
+
+seq_len: 96
+pred_len: 720
+batch_size: 32
+data_root: data
+
+max_epochs: 50
+learning_rate: 0.0001
+patience: 10
+lr_milestones: [30, 40]
+lr_gamma: 0.5
+gradient_clip: 1.0
+
+use_temporal_head: false
+use_input_residual: true
+
+n_bands: 1
+adj_rank: 16
+adj_topk: 10
+adj_tau: 1.0
+self_loop_alpha: 0.2
+diffusion_init: -4.0
+
+monitor: val_mse_mean
+results_dir: results
+num_workers: 4
+precision: 32
